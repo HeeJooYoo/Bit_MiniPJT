@@ -17,6 +17,13 @@
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 	
+		/*=============jQuery 변경 주석처리 =============
+		 window.onload = function(){
+			 document.getElementById("userId").focus();
+			 document.getElementById("userId").onkeydown = function(){
+				if(event.keyCode == '13')	fncCheckDuplication();
+			}
+		 } //========================================	*/
 		$(function() {
 			
 			$("#userId").focus();
@@ -38,6 +45,17 @@
 		});
 		
 		
+		/*=============jQuery 변경 주석처리 =============
+		function fncCheckDuplication() {
+			// Form 유효성 검증
+			if(document.detailForm.userId.value != null && document.detailForm.userId.value.length >0) {
+				document.detailForm.action='/user/checkDuplication';
+			    document.detailForm.submit();
+			}else {
+				alert('아이디는 반드시 입력하셔야 합니다.');
+			}
+			document.getElementById("userId").focus(); 
+		}========================================	*/
 		//==> "중복확인"  Event 처리
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -60,6 +78,13 @@
 		});
 		
 		
+		/*=============jQuery 변경 주석처리 =============
+		function fncUseId() {
+			if(opener) {
+				opener.document.detailForm.userId.value = "${userId}";
+			}
+			window.close();
+		}========================================	*/
 		//==>"사용"  Event 처리
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -79,7 +104,7 @@
 		});
 		
 		
-		//==> "닫기"  Event  처리
+		//==> 추가된부분 : "닫기"  Event  처리
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함.	
@@ -96,6 +121,9 @@
 
 <body bgcolor="#ffffff" text="#000000">
 
+<!-- ////////////////// jQuery Event 처리로 변경됨 ///////////////////////// 
+<form name="detailForm"  method="post">
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////// --> 
 <form>
 
 <!-- 타이틀 시작 -->
@@ -171,6 +199,9 @@
 									<img src="/images/ct_btng01.gif" width="4" height="21">
 								</td>
 								<td align="center" background="/images/ct_btng02.gif" class="ct_btn" style="padding-top:3px;">
+									<!-- ////////////////// jQuery Event 처리로 변경됨 ///////////////////////// 
+									<a href="javascript:fncCheckDuplication();">중복확인</a>
+									<!-- ////////////////////////////////////////////////////////////////////////////////////////////////// --> 
 									중복확인
 								</td>
 								<td width="4" height="21">
@@ -205,6 +236,9 @@
 							<img src="/images/ct_btnbg01.gif" width="17" height="23"/> 
 						</td>
 						<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
+							<!-- ////////////////// jQuery Event 처리로 변경됨 /////////////////////////
+							<a href="javascript:fncUseId();">사용</a>
+							////////////////////////////////////////////////////////////////////////////////////////////////// -->
 							사용
 						</td>
 						<td width="14" height="23">
@@ -217,6 +251,9 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
+						<!-- ////////////////// jQuery Event 처리로 변경됨 /////////////////////////
+						<a href="javascript:window.close();">닫기</a>
+						////////////////////////////////////////////////////////////////////////////////////////////////// -->
 						닫기
 					</td>
 					<td width="14" height="23">

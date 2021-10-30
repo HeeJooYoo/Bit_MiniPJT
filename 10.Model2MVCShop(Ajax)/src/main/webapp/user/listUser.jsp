@@ -192,7 +192,9 @@
 		<td align="center">
 		   <input type="hidden" id="currentPage" name="currentPage" value=""/>
 	
-			<jsp:include page="../common/pageNavigator.jsp"/>	
+			<jsp:include page="../common/pageNavigator.jsp">
+				<jsp:param value="fncGetUserList" name="page"/>
+			</jsp:include>	
 			
     	</td>
 	</tr>

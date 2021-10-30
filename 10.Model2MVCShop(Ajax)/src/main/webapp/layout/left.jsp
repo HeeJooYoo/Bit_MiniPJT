@@ -1,11 +1,9 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=euc-kr" %>
 <%@ page pageEncoding="EUC-KR"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="EUC-KR">
 	
@@ -18,9 +16,7 @@
 	<script type="text/javascript">
 	
 		function history(){
-			popWin = window.open("/history.jsp",
-														"popWin",
-														"left=300, top=200, width=300, height=200, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+			popWin = window.open("/history.jsp","popWin","left=300, top=200, width=300, height=200, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 		}
 	
 		//==> jQuery 적용 추가된 부분
@@ -42,10 +38,33 @@
 				//alert(  $( ".Depth03:contains('회원정보조회')" ) );
 		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/listUser");
 			}); 
+			
+			$(".Depth03:contains('판매상품등록')").on("click", function() {
+				$(window.parent.frames["rightFrame"].document.location).attr("href","../product/addProductView.jsp");
+			});
+			
+			$(".Depth03:contains('판매상품관리')").on("click", function() {
+				$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=manage");
+			});
+			
+			$(".Depth03:contains('비회원구매조회')").on("click", function() {
+				$(window.parent.frames["rightFrame"].document.location).attr("href","../guest.jsp");
+			});
+			
+			$(".Depth03:contains('상 품 검 색')").on("click", function(){
+				$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search");
+			});
+			
+			$(".Depth03:contains('구매이력조회')").on("click", function(){
+				$(window.parent.frames["rightFrame"].document.location).attr("href","/purchase/listPurchase");
+			});
+			
+			$(".Depth03:contains('최근 본 상품')").on("click", function(){
+				history();
+			});
 		});	
 		 
 	</script>
-	
 </head>
 
 <body background="/images/left/imgLeftBg.gif" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  >
@@ -59,13 +78,17 @@
 			<tr>
 				<c:if test="${ !empty user }">
 					<tr>
-						<td class="Depth03">개인정보조회</td>
+						<td class="Depth03">
+							개인정보조회
+						</td>
 					</tr>
 				</c:if>
 			
 				<c:if test="${user.role == 'admin'}">
 					<tr>
-						<td class="Depth03" >회원정보조회</td>
+						<td class="Depth03" >
+							회원정보조회
+						</td>
 					</tr>
 				</c:if>
 			
@@ -76,52 +99,72 @@
 	</td>
 </tr>
 
-<!--menu 02 line-->
 <c:if test="${user.role == 'admin'}">
-	<tr>
-		<td valign="top"> 
-			<table  border="0" cellspacing="0" cellpadding="0" width="159">
-				<tr>
-					<td class="Depth03">
-						<a href="../product/addProductView.jsp;" target="rightFrame">판매상품등록</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="Depth03">
-						<a href="/listProduct.do?menu=manage"  target="rightFrame">판매상품관리</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="DepthEnd">&nbsp;</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
+<!--menu 02 line-->
+<tr>
+	<td valign="top"> 
+		<table  border="0" cellspacing="0" cellpadding="0" width="159">
+			<tr>
+				<td class="Depth03">
+					<!-- <a href="../product/addProductView.jsp" target="rightFrame">판매상품등록</a> -->
+					판매상품등록
+				</td>
+			</tr>
+			<tr>
+				<td class="Depth03">
+					<!-- <a href="/product/listProduct?menu=manage"  target="rightFrame">판매상품관리</a> -->
+					판매상품관리
+				</td>
+			</tr>
+			<tr>
+				<td class="DepthEnd">&nbsp;</td>
+			</tr>
+		</table>
+	</td>
+</tr>
 </c:if>
 
 <!--menu 03 line-->
 <tr>
 	<td valign="top"> 
 		<table  border="0" cellspacing="0" cellpadding="0" width="159">
-			<tr>
-				<td class="Depth03">
-					<a href="/listProduct.do?menu=search" target="rightFrame">상 품 검 색</a>
-				</td>
-			</tr>
-			
-			<c:if test="${ !empty user && user.role == 'user'}">
-			<tr>
-				<td class="Depth03">
-					<a href="/listPurchase.do"  target="rightFrame">구매이력조회</a>
-				</td>
-			</tr>
+			<c:if test="${empty user}">
+			<%-- <% if(user == null) { %> --%>
+				<tr>
+					<td class="Depth03">
+						<!-- <a href="../guest.jsp" target="rightF회ame">비회원구매조회</a> -->
+						비회원구매조회
+					</td>
+				</tr>
+				<tr>
+					<td class="DepthEnd">&nbsp;</td>
+				</tr>
+			<%-- <% } %> --%>
 			</c:if>
-			
+			<tr>
+				<td class="Depth03">
+					<!-- <a href="/product/listProduct?menu=search" target="rightFrame">상 품 검 색</a> -->
+					상 품 검 색
+				</td>
+			</tr>
+			<%-- <%	if(vo != null && role.equals("user")){%> --%>
+			<c:if test="${!empty user && user.role == 'user'}">
+			<tr>
+				<td class="Depth03">
+					<!-- <a href="/purchase/listPurchase"  target="rightFrame">구매이력조회</a> -->
+					구매이력조회
+				</td>
+			</tr>
+			<%-- <%  }%> --%>
+			</c:if>
 			<tr>
 				<td class="DepthEnd">&nbsp;</td>
 			</tr>
 			<tr>
-				<td class="Depth03"><a href="javascript:history()">최근 본 상품</a></td>
+				<td class="Depth03">
+					<!-- <a href="javascript:history()">최근 본 상품</a> -->
+					최근 본 상품
+				</td>
 			</tr>
 		</table>
 	</td>
@@ -130,5 +173,4 @@
 </table>
 
 </body>
-
 </html>
