@@ -62,10 +62,15 @@ public class UserRestController {
 		System.out.println("::"+user);
 		User dbUser=userService.getUser(user.getUserId());
 		
-		if( user.getPassword().equals(dbUser.getPassword())){
-			System.out.println("login session 저장");
-			session.setAttribute("user", dbUser);
-		}
+		if(dbUser != null) {
+			if( user.getPassword().equals(dbUser.getPassword())){
+				System.out.println("login session 저장");
+				session.setAttribute("user", dbUser);
+			} else {
+				dbUser = null;
+			}
+		} 
+		
 		return dbUser;
 	}
 	
