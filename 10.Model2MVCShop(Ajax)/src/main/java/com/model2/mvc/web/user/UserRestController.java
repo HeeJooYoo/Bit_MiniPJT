@@ -61,19 +61,11 @@ public class UserRestController {
 		//Business Logic
 		System.out.println("::"+user);
 		User dbUser=userService.getUser(user.getUserId());
-		System.out.println(":: result User " + dbUser);
-		if(dbUser != null) {
-			System.out.println("dbUser Not Null");
-			System.out.println("_"+user.getPassword()+"_");
-			System.out.println("_"+dbUser.getPassword()+"_");
-			if( user.getPassword().equals(dbUser.getPassword())){
-				System.out.println("login session 저장");
-				session.setAttribute("user", dbUser);
-			} else {
-				dbUser = null;
-			}
-		}
 		
+		if( user.getPassword().equals(dbUser.getPassword())){
+			System.out.println("login session 저장");
+			session.setAttribute("user", dbUser);
+		}
 		return dbUser;
 	}
 	

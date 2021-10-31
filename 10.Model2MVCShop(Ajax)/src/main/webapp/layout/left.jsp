@@ -58,7 +58,7 @@
 			$(".Depth03:contains('구매이력조회')").on("click", function(){
 				$(window.parent.frames["rightFrame"].document.location).attr("href","/purchase/listPurchase");
 			});
-			
+
 			$(".Depth03:contains('장바구니')").on("click", function(){
 				$(window.parent.frames["rightFrame"].document.location).attr("href","/cart/getCartList?userId=${user.userId}");
 			});
@@ -164,7 +164,7 @@
 			</tr>
 			<tr>
 				<td class="Depth03">
-					<%-- <a href="/cart/getCartList?userId=${user.userId}" target="rightFrame">장바구니</a> --%>
+					<!-- <a href="/cart/getCartList?userId=${user.userId}" target="rightFrame">장바구니</a> -->
 					장바구니
 				</td>
 			</tr>
