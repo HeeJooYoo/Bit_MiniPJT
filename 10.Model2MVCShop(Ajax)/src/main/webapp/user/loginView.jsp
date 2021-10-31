@@ -57,9 +57,9 @@
 							success : function(JSONData , status) {
 
 								//Debug...
-								//alert(status);
-								//alert("JSONData : \n"+JSONData);
-								//alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(JSONData) );
+								alert(status);
+								alert("JSONData : \n"+JSONData);
+								alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(JSONData) );
 								//alert( JSONData != null );
 								
 								if( JSONData != null ){
@@ -78,6 +78,9 @@
 								}else{
 									alert("아이디 , 패스워드를 확인하시고 다시 로그인...");
 								}
+							},
+							error : function(data) {
+								alert("아이디 , 패스워드를 다시 확인해주세요!");
 							}
 					}); 
 					////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
