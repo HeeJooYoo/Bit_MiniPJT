@@ -1,5 +1,6 @@
 package com.model2.mvc.service.product.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,11 @@ public class ProductServiceImpl implements ProductService {
 	public int updateProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
 		return productDao.updateProduct(product);
+	}
+
+	@Override
+	public List<Product> getProductKeyword(String keyword) throws Exception {
+		// TODO Auto-generated method stub
+		return productDao.getProductKeyword(keyword);
 	}
 }

@@ -87,11 +87,17 @@
   </select>
   
   <select id="getProductList" parameterType="map" resultMap="productSelectMap">
-	SELECT * 
+	SELECT *
   	FROM (SELECT inner_table. * , ROWNUM AS row_seq 
   		 	FROM ( <include refid="selectProduct" /> ) inner_table 
   		   WHERE ROWNUM &lt;= #{search.endRowNum} )
   	WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+  </select>
+  
+  <select id="getProductKeyword" parameterType="string" resultMap="productSelectMap">
+  	SELECT prod_name 
+  	FROM product
+  	WHERE prod_name LIKE '%'||#{value}||'%'
   </select>
   
   <select id="getTotalCount" parameterType="map" resultType="int">

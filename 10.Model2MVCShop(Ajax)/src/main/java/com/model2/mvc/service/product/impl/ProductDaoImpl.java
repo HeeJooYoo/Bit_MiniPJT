@@ -59,4 +59,10 @@ public class ProductDaoImpl implements ProductDao {
 		return sqlSession.selectOne("ProductMapper.getTotalCount", map);
 	}
 
+	@Override
+	public List<Product> getProductKeyword(String keyword) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("ProductMapper.getProductKeyword", keyword);
+	}
+
 }

@@ -11,7 +11,7 @@
 	function funGuest() {
 		if (confirm("비회원입니다. 구매하시겠습니까?")) {
 			/* location.href="/purchase/addPurchase?prod_no="+${product.prodNo}; */
-			self.location="/purchase/addPurchase?prod_no="+${product.prodNo};
+			self.location="/purchase/addPurchase?prod_no=${product.prodNo}";
 		}
 	}
 
@@ -25,7 +25,7 @@
 	
 	$(function() {
 		if (${param.menu != "ok"}) {
-			$($(".ct_btn01")[1]).text("이전");
+			$($(".ct_btn01")[2]).text("이전");
 		} 
 		
 		$(".ct_btn01:contains('이전')").click(function(){

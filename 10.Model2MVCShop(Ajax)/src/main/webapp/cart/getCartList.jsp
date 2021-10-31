@@ -34,9 +34,10 @@
 
 <body>
 
-${user.userName}님의 장바구니( ${totalCount} )
+
 
 <div class="container-fluid">
+<div style="margin-bottom: 20px; margin-top: 10px; font-size: 15px;">${user.userName}님의 장바구니( ${totalCount} )</div>
 <div class="row">
 	<c:forEach var="cart" items="${cart}">
 		

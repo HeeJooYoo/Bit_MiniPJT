@@ -16,8 +16,9 @@
 </c:choose>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script type="text/javascript">
 
    function searchEnterkey() {
@@ -65,6 +66,30 @@
 		   alert($("#div").val()); 
 		   //self.location="/purchase/updateTranCodeByProd?prodNo="+$("#div").val()+"&tranCode=2"
 	   });
+	   
+	/*    $("input[name='searchKeyword']").autocomplete({
+		 // alert($("input[name='searchKeyword']").val());
+		 //var keyword = $("input[name='searchKeyword']").val();
+	     source: $.ajax({
+	    	  		url:"json/getProductKeyword",
+	    	  		method : "GET",
+					dataType : "json",
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					data : {
+						keyWord : $("input[name='searchKeyword']").val()
+					},
+					success : function(data, status) {
+						alert(status);
+						alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(data) );
+						//alert(data.result);
+						//alert(data.userId);
+					}
+	      		  })
+	       //source:availableTags
+	   }); */
    });
 </script>
 </head>
@@ -111,8 +136,8 @@
 	                    <option value="1" ${search.searchCondition == '1' ? 'selected' : ''}>상품명</option>
 	               		<option value="2" ${search.searchCondition == '2' ? 'selected' : ''}>상품가격</option>
 	               </select> 
-               		<%-- <input type="text" onkeyup="searchEnterkey();" name="searchKeyword" value="${search.searchKeyword}" class="ct_input_g" style="width: 200px; height: 19px" /> --%>
-               		<input type="text" name="searchKeyword" value="${search.searchKeyword}" class="ct_input_g" style="width: 200px; height: 19px" />
+	           
+					<input type="text" name="searchKeyword" value="${search.searchKeyword}" class="ct_input_g" style="width: 200px; height: 19px" />
                </td>
 
                <td align="right" width="70">
@@ -144,7 +169,9 @@
 	               <td align="right">
 	               		 <input type="hidden" id="searchOrder" name="searchOrder" value="${searchOrder}"/>
 			 			<%-- <a href="/product/listProduct?menu=${param.menu}&searchOrder=1">상품명</a> | <a href="/product/listProduct?menu=${param.menu}&searchOrder=2">낮은가격</a> | <a href="/product/listProduct?menu=${param.menu}&searchOrder=3">높은가격</a> --%>
-			 			<span id="orderName">상품명</span> | <span id="orderPrice1">낮은가격</span> | <span id="orderPrice2">높은가격</span>
+			 			<span id="orderName">상품명</span> | 
+			 			<span id="orderPrice1">낮은가격</span> | 
+			 			<span id="orderPrice2">높은가격</span>
 	               </td>               
                </c:if>
             </tr>
@@ -170,8 +197,7 @@
 	               <td align="center">${i}</td>
 	               <td></td>
 	               <td align="left">
-	               	  	<%-- <a href="/product/getProduct?prodNo=${product.prodNo}&menu=${param.menu}&tranCode=${product.proTranCode}">${product.prodName}</a> --%>
-					    <input type="hidden" id="h_prodNo" value="${product.prodNo}"/>
+	               	    <input type="hidden" id="h_prodNo" value="${product.prodNo}"/>
 		                <input type="hidden" id="h_tranCode" value="${product.proTranCode}"/>
 	               	  	${product.prodName}
 	               </td>
@@ -190,7 +216,7 @@
 	               					<c:if test="${product.proTranCode == '1'}">
 	               						<c:choose>
 	               							<c:when test="${param.menu == 'manage'}">
-	               								<td align="left">구매완료 <%-- <a href='/purchase/updateTranCodeByProd?prodNo=${product.prodNo}&tranCode=2'>배송하기</a> --%>
+	               								<td align="left">구매완료
 	               									<button id="div" value="${product.prodNo}">배송하기</button>
 	               								</td>
 	               							</c:when>

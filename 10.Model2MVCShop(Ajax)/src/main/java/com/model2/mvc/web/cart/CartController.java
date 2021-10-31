@@ -93,7 +93,7 @@ public class CartController {
 	
 	@RequestMapping("getCartList")
 	public String getCartList(@RequestParam("userId") String userId, Model model) throws Exception {
-		System.out.println(userId + "!!!!!!!!!!");
+		System.out.println(userId);
 		Map<String,Object> map = cartService.getCartList(userId);
 		List<Cart> list = (List<Cart>)map.get("list");
 		
@@ -104,7 +104,6 @@ public class CartController {
 		Integer totalCount = (Integer)map.get("totalCount");
 	 	System.out.println(totalCount);
 		
-	 	//model.addAttribute("product", )
 		model.addAttribute("cart", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
 		

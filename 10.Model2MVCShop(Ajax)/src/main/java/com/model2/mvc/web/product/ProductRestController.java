@@ -193,4 +193,17 @@ public class ProductRestController {
 		
 		return map;
 	}
+	
+	@RequestMapping(value = "json/getProductKeyword", method = RequestMethod.GET)
+	public Map<String, Object> getKeyword(@RequestParam("keyWord") String keyword) throws Exception {
+		
+		System.out.println("/prodcut/getProductKeyword : GET");
+		//System.out.println("list currentPage " + request.getParameter("currentPage"));
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keywordList", productService.getProductKeyword(keyword));
+		System.out.println("keyword :: " + map.get("keywordList"));
+		
+		return map;
+	}
 }
