@@ -2,8 +2,18 @@
    pageEncoding="EUC-KR"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
 <html>
+<style>
+.ui-autocomplete { 
+    overflow-y: scroll; 
+    overflow-x: hidden;}
+</STYLE>
+
 <head>
 
 <c:choose>
@@ -15,10 +25,8 @@
 	</c:otherwise>
 </c:choose>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+
 <script type="text/javascript">
 
    function searchEnterkey() {
@@ -67,31 +75,33 @@
 		   //self.location="/purchase/updateTranCodeByProd?prodNo="+$("#div").val()+"&tranCode=2"
 	   });
 	   
-	/*    $("input[name='searchKeyword']").autocomplete({
-		 // alert($("input[name='searchKeyword']").val());
-		 //var keyword = $("input[name='searchKeyword']").val();
-	     source: $.ajax({
-	    	  		url:"json/getProductKeyword",
-	    	  		method : "GET",
-					dataType : "json",
-					headers : {
-						"Accept" : "application/json",
-						"Content-Type" : "application/json"
-					},
-					data : {
-						keyWord : $("input[name='searchKeyword']").val()
-					},
-					success : function(data, status) {
-						alert(status);
-						alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(data) );
-						//alert(data.result);
-						//alert(data.userId);
-					}
-	      		  })
-	       //source:availableTags
-	   }); */
-   });
+	   $("input[name='searchKeyword']").autocomplete({
+	     source: function(request, response) {
+	    	 		$.ajax({
+	    	 			url:"json/getProductKeyword",
+		    	  		method : "GET",
+						dataType : "json",
+						contentType: 'application/x-www-form-urlencoded; charset=MS949',
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+						data : {
+							"keyWord" : encodeURI($("input[name='searchKeyword']").val())
+						},
+						success : function(data, status) {
+							//alert(status);
+							//alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(data) );
+							
+							//alert(data);
+							response(data);   //response
+						}
+		      		});
+	     		}
+	   });
+	});
 </script>
+
 </head>
 
 <body bgcolor="#ffffff" text="#000000">

@@ -94,7 +94,7 @@
   	WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
   </select>
   
-  <select id="getProductKeyword" parameterType="string" resultMap="productSelectMap">
+  <select id="getProductKeyword" parameterType="string" resultType="string">
   	SELECT prod_name 
   	FROM product
   	WHERE prod_name LIKE '%'||#{value}||'%'

@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getProductKeyword(String keyword) throws Exception {
+	public List<String> getProductKeyword(String keyword) throws Exception {
 		// TODO Auto-generated method stub
 		return productDao.getProductKeyword(keyword);
 	}

@@ -60,7 +60,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<Product> getProductKeyword(String keyword) throws Exception {
+	public List<String> getProductKeyword(String keyword) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("ProductMapper.getProductKeyword", keyword);
 	}

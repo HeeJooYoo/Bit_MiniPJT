@@ -16,5 +16,5 @@ public interface ProductDao {
 	
 	public int getTotalCount(Map<String, Object> map) throws Exception;
 	
-	public List<Product> getProductKeyword(String keyword) throws Exception;
+	public List<String> getProductKeyword(String keyword) throws Exception;
 }

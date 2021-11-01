@@ -1,9 +1,13 @@
 package com.model2.mvc.web.product;
 
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -195,15 +199,13 @@ public class ProductRestController {
 	}
 	
 	@RequestMapping(value = "json/getProductKeyword", method = RequestMethod.GET)
-	public Map<String, Object> getKeyword(@RequestParam("keyWord") String keyword) throws Exception {
+	public List<String> getKeyword(@RequestParam("keyWord") String keyword) throws Exception {
 		
 		System.out.println("/prodcut/getProductKeyword : GET");
-		//System.out.println("list currentPage " + request.getParameter("currentPage"));
+		//System.out.println("encoding Àü " + keyword);
+		keyword = URLDecoder.decode(keyword, "UTF-8");
+		System.out.println("encoding ÈÄ " + keyword);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("keywordList", productService.getProductKeyword(keyword));
-		System.out.println("keyword :: " + map.get("keywordList"));
-		
-		return map;
+		return productService.getProductKeyword(keyword);
 	}
 }
