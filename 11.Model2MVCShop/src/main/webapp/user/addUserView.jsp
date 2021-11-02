@@ -41,8 +41,9 @@
 		//============= "취소"  Event 처리 및  연결 =============
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("a[href='#' ]").on("click" , function() {
-				$("form")[0].reset();
+			$("a[href='#']").on("click" , function() {
+				//$("form")[0].reset();
+				window.history.back();
 			});
 		});	
 	
@@ -107,6 +108,14 @@
 		
 		
 	   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  
+	    ///주민번호 change 시 유효성 검사 호출
+	   	$(function() {
+	   		$("input[name='ssn']").change(function() {
+	   			checkSsn();
+	   		});
+	  	});
+	   
 	   //==> 주민번호 유효성 check 는 이해정도로....
 		function checkSsn() {
 			var ssn1, ssn2; 
@@ -142,16 +151,49 @@
 		 
 		//==>"ID중복확인" Event 처리 및 연결
 		 $(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $("button.btn.btn-info").on("click" , function() {
-				popWin 
-				= window.open("/user/checkDuplication.jsp",
-											"popWin", 
-											"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
-											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+			 $("input[name='userId']").blur(function(){
+				var id=$("input[name='userId']").val();
+				
+				if(id != '') {
+					$.ajax (
+						{
+							url : "/user/json/checkDuplication",
+							method : "POST",
+							dataType : "json",
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							data : JSON.stringify({
+								userId : id
+							}),
+							success : function(data, status) {
+								//alert(status);
+								//alert( "JSON.stringify(JSONData) : \n"+JSON.stringify(data) );
+								//alert(data.result);
+								//alert(data.userId);
+								
+								if (data.result) {
+									$("#idCheck").text("사용가능한 아이디입니다.");
+								} else {
+									$("#idCheck").text("중복된 아이디입니다.");
+								}
+							}
+						}	
+					)
+				} else {
+					$("#idCheck").text("아이디를 입력해주세요.");
+					$("input[name='userId']").focus();
+				}
 			});
 		});	
 
+		//////휴대전화 선택 시 다음칸으로 focus 넘김
+		$(function() {
+			$("select[name='phone1']").on("change", function() {
+				$("input[name='phone2']").focus();
+			});
+		});
 	</script>		
     
 </head>
@@ -177,14 +219,14 @@
 		  <div class="form-group">
 		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아 이 디</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userId" name="userId" placeholder="중복확인하세요"  readonly>
+		      <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디 입력" >
 		       <span id="helpBlock" class="help-block">
-		      	<strong class="text-danger">입력전 중복확인 부터..</strong>
+		      	<strong class="text-danger" id="idCheck"></strong>
 		      </span>
 		    </div>
-		    <div class="col-sm-3">
+		    <!-- <div class="col-sm-3">
 		      <button type="button" class="btn btn-info">중복확인</button>
-		    </div>
+		    </div> -->
 		  </div>
 		  
 		  <div class="form-group">

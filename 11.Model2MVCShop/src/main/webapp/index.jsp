@@ -37,7 +37,7 @@
 		//============= 회원원가입 화면이동 =============
 		$( function() {
 			//==> 추가된부분 : "addUser"  Event 연결
-			$("a[href='#' ]:contains('회원가입')").on("click" , function() {
+			$("a[href='#']:contains('회원가입')").on("click" , function() {
 				self.location = "/user/addUser"
 			});
 		});
@@ -45,8 +45,26 @@
 		//============= 로그인 화면이동 =============
 		$( function() {
 			//==> 추가된부분 : "addUser"  Event 연결
-			$("a[href='#' ]:contains('로 그 인')").on("click" , function() {
+			$("a[href='#']:contains('로 그 인')").on("click" , function() {
 				self.location = "/user/login"
+			});
+		});
+		
+		$(function() {
+			$("#main").click(function(){
+				location.reload();
+			});
+			
+			$("a[href='#']:contains('비회원구매조회')").on("click" , function() {
+				self.location = "../guest.jsp"
+			});
+			
+			$("a[href='#']:contains('상품검색')").on("click" , function() {
+				self.location = "/product/listProduct?menu=search"
+			});
+			
+			$("a[href='#']:contains('최근본상품')").on("click" , function() {
+				popWin = window.open("/history.jsp","popWin","left=300, top=200, width=300, height=200, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 			});
 		});
 		
@@ -61,7 +79,7 @@
 		
         <div class="container">
         
-        	<a class="navbar-brand" href="#">Model2 MVC Shop</a>
+        	<a class="navbar-brand" href="#" id="main">Model2 MVC Shop</a>
 			
 			<!-- toolBar Button Start //////////////////////// -->
 			<div class="navbar-header">
@@ -76,8 +94,11 @@
 			
 			<div class="collapse navbar-collapse"  id="target">
 	             <ul class="nav navbar-nav navbar-right">
-	                 <li><a href="#">회원가입</a></li>
-	                 <li><a href="#">로 그 인</a></li>
+	                 <!-- <li><a href="#">회원가입</a></li>
+	                 <li><a href="#">로 그 인</a></li> -->
+	                 <li><a href="#">비회원구매조회</a></li>
+					 <li><a href="#">상품검색</a></li>
+					 <li><a href="#">최근본상품</a></li>
 	           	</ul>
 	       </div>
    		
@@ -87,19 +108,27 @@
    	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
-		
+		<div class="jumbotron" style="text-align: center;">
+		  	<h1>Model2 MVC Shop</h1>
+		  	<p>간단쇼핑몰</p>
+		  	<div class="text-center" style="margin-top: 30px;">
+		  		<a class="btn btn-info btn-lg" href="#" role="button">회원가입</a>
+		  		<a class="btn btn-info btn-lg" href="#" role="button">로 그 인</a>
+		  	</div>
+		</div>
+		<%--
 		<!-- 다단레이아웃  Start /////////////////////////////////////-->
 		<div class="row">
 	
 			<!--  Menu 구성 Start /////////////////////////////////////-->     	
 			<div class="col-md-3">
 		        
-		       	<!--  회원관리 목록에 제목 -->
+	        	 회원관리 목록에 제목
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<i class="glyphicon glyphicon-heart"></i> 회원관리
          			</div>
-         			<!--  회원관리 아이템 -->
+         			 회원관리 아이템
 					<ul class="list-group">
 						 <li class="list-group-item">
 						 	<a href="#">개인정보조회</a> <i class="glyphicon glyphicon-ban-circle"></i>
@@ -109,8 +138,7 @@
 						 </li>
 					</ul>
 		        </div>
-               
-               
+	       
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 							<i class="glyphicon glyphicon-briefcase"></i> 판매상품관리
@@ -125,34 +153,26 @@
 					</ul>
 		        </div>
                
-               
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 							<i class="glyphicon glyphicon-shopping-cart"></i> 상품구매
 	    			</div>
 					<ul class="list-group">
+						 <li class="list-group-item"><a href="#">비회원구매조회</a></li>
 						 <li class="list-group-item"><a href="#">상품검색</a></li>
-						  <li class="list-group-item">
-						  	<a href="#">구매이력조회</a> <i class="glyphicon glyphicon-ban-circle"></i>
-						  </li>
-						 <li class="list-group-item">
-						 	<a href="#">최근본상품</a> <i class="glyphicon glyphicon-ban-circle"></i>
-						 </li>
+						 <li class="list-group-item"><a href="#">최근본상품</a></li>
 					</ul>
 				</div>
 				
-			</div>
+			</div> 
 			<!--  Menu 구성 end /////////////////////////////////////-->   
 
 	 	 	<!--  Main start /////////////////////////////////////-->   		
 	 	 	<div class="col-md-9">
-				<div class="jumbotron">
+				<div class="jumbotron" style="text-align: center;">
 			  		<h1>Model2 MVC Shop</h1>
-			  		<p>로그인 후 사용가능...</p>
-			  		<p>로그인 전 검색만 가능합니다.</p>
-			  		<p>회원가입 하세요.</p>
-			  		
-			  		<div class="text-center">
+			  		<p>간단쇼핑몰</p>
+			  		<div class="text-center" style="margin-top: 30px;">
 			  			<a class="btn btn-info btn-lg" href="#" role="button">회원가입</a>
 			  			<a class="btn btn-info btn-lg" href="#" role="button">로 그 인</a>
 			  		</div>
@@ -163,7 +183,7 @@
 	 	 	
 		</div>
 		<!-- 다단레이아웃  end /////////////////////////////////////-->
-		
+		 --%>
 	</div>
 	<!--  화면구성 div end /////////////////////////////////////-->
 
