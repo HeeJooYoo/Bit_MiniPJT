@@ -41,6 +41,14 @@
   				AND receiver_phone = #{guestPhone}
   			</otherwise>
   		</choose>
+  		<if test="order != null and !order.equals('')">
+  			<if test="order == 1">
+				ORDER BY order_data DESC
+			</if>
+			<if test="order == 2">
+				ORDER BY order_data
+			</if>
+  		</if>
   	</where>
   </sql>
   

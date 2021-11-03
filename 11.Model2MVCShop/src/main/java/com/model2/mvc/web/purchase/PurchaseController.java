@@ -1,6 +1,8 @@
 package com.model2.mvc.web.purchase;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -150,6 +152,7 @@ public class PurchaseController {
 	public String listPurchase(@ModelAttribute Search search, HttpSession session, HttpServletRequest request, Model model) throws Exception {
 		
 		User user = (User)session.getAttribute("user");
+		System.out.println(request.getParameter("searchOrder"));
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
@@ -160,16 +163,28 @@ public class PurchaseController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
 		map.put("user", user);
+		map.put("order", request.getParameter("searchOrder"));
 		map.put("guestName", request.getParameter("guestName"));
 		map.put("guestPhone", request.getParameter("guestPhone"));
 		
 		purchaseService.getPurchaseList(map);
 		
+		List<Purchase> list = (List<Purchase>) map.get("list"); 
+
+		for(int i=0 ; i < list.size() ; i++) {
+			list.get(i).setPurchaseProd(productService.getProduct(list.get(i).getPurchaseProd().getProdNo()));
+		}
+		
+		map.put("list", list);
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+		if (request.getParameter("guestName") != null) {
+			model.addAttribute("guestName", request.getParameter("guestName"));
+			model.addAttribute("guestPhone", request.getParameter("guestPhone"));
+		}
 		
 		return "forward:listPurchase.jsp";
 	}

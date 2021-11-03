@@ -89,7 +89,7 @@
 	   });
 	   
 	   $("#div").click(function(){
-		   alert($("#div").val()); 
+		   //alert($("#div").val()); 
 		   self.location="/purchase/updateTranCodeByProd?prodNo="+$("#div").val()+"&tranCode=2"
 	   });
 	   
@@ -301,7 +301,7 @@
 		          <tr>
 		              <td align="center">
 		                 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-						 <jsp:include page="../common/pageNavigator.jsp">
+						 <jsp:include page="../common/pageNavigator_new.jsp">
 						 	<jsp:param value="fncGetProductList" name="page"/>
 						 </jsp:include>
 		              </td>
@@ -317,14 +317,7 @@
 						<c:set var="i" value="${ i+1 }" />
 							<div class="col-xs-6 col-md-3">
 						    	<div class="thumbnail">
-						    	  <c:choose>
-						    	  	<c:when test="${product.fileName=='empty.GIF'}">
-						    	  		<img src = "/images/notFile.png"/>
-						    	  	</c:when>
-						    	  	<c:otherwise>
-						    	  		<img src = "/images/uploadFiles/${product.fileName}"/>
-						    	  	</c:otherwise>
-						    	  </c:choose>
+						    	  <img src = "/images/uploadFiles/${product.fileName}"/>
 							      <div class="caption">
 							        <h3>${product.prodName}</h3>
 							        <p>АЁАн : ${product.price}</p>
