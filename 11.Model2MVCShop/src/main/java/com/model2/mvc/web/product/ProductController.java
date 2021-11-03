@@ -68,10 +68,12 @@ public class ProductController {
 			Files.copy(uploadfile.getInputStream(), copy, StandardCopyOption.REPLACE_EXISTING);
 			//File saveFile = new File(temDir, saveName);
 			//uploadfile.transferTo(saveFile); //업로드 파일에 saveFile이라는 껍데기를 입힘
+			System.out.println("아무것도 넣음");
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println("아무것도 안넣음");
 			e.printStackTrace();
-			saveName = "empty.GIF";
+			saveName = "notFile.png";
 		}
 		
 		return saveName;
@@ -90,7 +92,7 @@ public class ProductController {
 //		System.out.println(":: 파일 경로6 => " + File.separator + StringUtils.cleanPath(saveName));
 		
 		String fileName = uploadFile(uploadfile, temDir);
-	
+		
 		Product product = new Product();
 		product.setFileName(fileName);
 		product.setProdName(request.getParameter("prodName"));
@@ -99,7 +101,7 @@ public class ProductController {
 		product.setPrice(Integer.parseInt(request.getParameter("price")));
 	
 		System.out.println("Product 확인 :: " + product);
-		System.out.println("insert 결과 :: " + productService.addProduct(product));
+		//System.out.println("insert 결과 :: " + productService.addProduct(product));
 		
 		model.addAttribute("product", product);
 		
@@ -159,11 +161,26 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "updateProduct", method = RequestMethod.POST)
-	public String updateProduct(@ModelAttribute Product product) throws Exception {
+	public String updateProduct(@RequestParam(value="uploadFile", required = false) MultipartFile uploadfile, @ModelAttribute Product product, HttpServletRequest request) throws Exception {
 		
 		System.out.println(":: updateProductAction_prodNo => "+product.getProdNo());
 		System.out.println(":: update Product 확인 => "+product);
+		
+		String temDir = request.getServletContext().getRealPath("/images/uploadFiles/");
 
+		String fileName="";
+		
+		if ("".equals(uploadfile.getOriginalFilename())) {
+			Product returnProduct = productService.getProduct(product.getProdNo());
+			if (returnProduct != null) {
+				fileName = returnProduct.getFileName();			
+			} 
+		} else {
+			System.out.println("이미지 있음");
+			fileName = uploadFile(uploadfile, temDir);
+		}
+		
+		product.setFileName(fileName);
 		productService.updateProduct(product);
 		
 		return "redirect:./getProduct?prodNo="+product.getProdNo()+"&menu=ok";

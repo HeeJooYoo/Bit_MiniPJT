@@ -119,16 +119,10 @@
 	   });
 	});
     
-    var count = 1;
+    var count = 2;
     window.onscroll = function() {
     	if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    		count++;
     		$("#currentPage").val(count);
-/*     		console.log("스크롤 바닥 터치" + count);
-    		$("#currentPage").val(count);
-    		console.log($('#currentPage').val()); 		
-    		console.log("erwrwerwerw" + $("form").serialize());
-    		console.log($("select[name='searchCondition']").val()); */
     		$.ajax(
     			{
     				url : "/product/json/listProduct",
@@ -145,21 +139,14 @@
     					console.log(JSON.stringify(data));
     					alert(data.totalCount);
     					alert(data.list); */
+    					count++;
     					var append_nod = "";
     					$.each(data.list, function(index, item){ 
     						console.log(item);
     						
-    						var fileName = '';
-    						
-    						if (item.fileName == 'empty.GIF') {
-    							fileName = "<img src = '/images/notFile.png'/>";
-							} else {
-								fileName = "<img src = '/images/uploadFiles/"+item.fileName+"/>";
-							}
-    					
     						append_nod += "<div class='col-xs-6 col-md-3'>";
     						append_nod += "<div class='thumbnail'>";    						
-    						append_nod += fileName;
+    						append_nod += "<img src = '/images/uploadFiles/"+item.fileName+"/>";
     						append_nod += "<div class='caption'>";
     						append_nod += ("<h3>" + item.prodName + "</h3>");
     						append_nod += ("<p>가격 : " + item.price + "</p>"); 

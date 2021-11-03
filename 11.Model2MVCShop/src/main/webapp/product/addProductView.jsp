@@ -83,9 +83,9 @@
 			});
 			
 			$("input[name='manuDate']").datepicker({
-				showOn:"both",
+				/* showOn:"both",
 				buttonImage:"../images/ct_icon_date.gif",
-				buttonImageOnly:true,
+				buttonImageOnly:true, */
 				changeMonth: true,
 				changeYear: true,
 				dateFormat:"yy-mm-dd"
@@ -97,76 +97,66 @@
 
 <body>
 	<jsp:include page="/layout/toolbar.jsp" />
+	
 	<div class="container">
-		<form>
 		
-		<div class="page-header">
+		
+		<div class="page-header text-center">
 	       <h3 class=" text-info">상품등록</h3>
 	       <h5 class="text-muted">상품을 <strong class="text-danger">잘 등록</strong>해 주세요.</h5>
 	    </div>
 		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2">
-	  			<strong>상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"></strong>
-	  		</div>
-			<div class="col-xs-8 col-md-4">
-				<input type="text" name="prodName" class="ct_input_g" style="width: 100px; height: 20px" maxLength="20">
-			</div>
-		</div>
-	
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 ">
-	  			<strong>상품상세정보 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/></strong>
-	  		</div>
-			<div class="col-xs-8 col-md-4">
-				<input type="text" name="prodDetail" class="ct_input_g" style="width: 100px; height: 19px" maxLength="10" minLength="6"/>
-			</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 ">
-	  			<strong>제조일자 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/></strong>
-	  		</div>
-			<div class="col-xs-8 col-md-4">
-				<input type="text" name="manuDate" readonly="readonly" class="ct_input_g" style="width: 100px; height: 19px; margin-right: 10px" maxLength="10" minLength="6"/>
-			</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 ">
-	  			<strong>가격 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/></strong>
-	  		</div>
-			<div class="col-xs-8 col-md-4">
-				<input type="text" name="price" class="ct_input_g" style="width: 100px; height: 19px" maxLength="10">&nbsp;원
-			</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 ">
-	  			<strong>상품이미지</strong>
-	  		</div>
-			<div class="col-xs-8 col-md-4">
-				<input type="file" name="fileName" class="ct_input_g" style="width: 200px;" maxLength="13"/>
-			</div>
-		</div>
-		
-		<hr/>	
-		
-		<div class="form-group">
-		   <div class="col-sm-offset-2  col-sm-10 text-right">
-			 <a class="btn btn-primary btn" href="#" role="button">등록</a>
-		     <button type="button" class="btn btn-primary">취소</button>
-		   </div>
-	  	</div>
-	</form>
+		<form class="form-horizontal">
+		 <div class="form-group">
+		    <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">
+		    	상 품 명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle">
+		    </label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="prodName" name="prodName">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="prodDetail" class="col-sm-offset-1 col-sm-3 control-label">
+		    	상품상세정보 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		    </label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="prodDetail" name="prodDetail">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">
+		    	제조일자 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		    </label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="manuDate" name="manuDate" readonly>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="price" class="col-sm-offset-1 col-sm-3 control-label">
+		    	가격 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		    </label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="price" name="price">
+		    </div>
+		  </div>
+		  
+		   <div class="form-group">
+		    <label for="fileName" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
+		    <div class="col-sm-4">
+		      <input type="file" class="form-control" id="fileName" name="fileName">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		   	<div class="col-sm-offset-4  col-sm-4 text-center">
+				<a class="btn btn-primary btn" href="#" role="button">등록</a>
+		     	<button type="button" class="btn btn-primary">취소</button>
+		   	</div>
+	  	  </div>
+		</form>
 	
 	</div>
 </body>

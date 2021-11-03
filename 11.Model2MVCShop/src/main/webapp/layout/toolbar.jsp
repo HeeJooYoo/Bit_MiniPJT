@@ -38,13 +38,10 @@
 	                     </a>
 	                     <ul class="dropdown-menu">
 	                         <li><a href="#">개인정보조회</a></li>
-	                         
+	                         <li class="divider"></li>
 	                         <c:if test="${sessionScope.user.role == 'admin'}">
 	                         	<li><a href="#">회원정보조회</a></li>
 	                         </c:if>
-	                         
-	                         <li class="divider"></li>
-	                         <li><a href="#">etc...</a></li>
 	                     </ul>
 	                 </li>
 	                 
@@ -57,9 +54,8 @@
 		                     </a>
 		                     <ul class="dropdown-menu">
 		                         <li><a href="#">판매상품등록</a></li>
-		                         <li><a href="#">판매상품관리</a></li>
 		                         <li class="divider"></li>
-		                         <li><a href="#">etc..</a></li>
+		                         <li><a href="#">판매상품관리</a></li>
 		                     </ul>
 		                </li>
 	                 </c:if>
@@ -72,18 +68,15 @@
 	                     </a>
 	                     <ul class="dropdown-menu">
 	                         <li><a href="#">상 품 검 색</a></li>
-	                         
+	                         <li class="divider"></li>
 	                         <c:if test="${sessionScope.user.role == 'user'}">
 	                           <li><a href="#">구매이력조회</a></li>
+	                           <li class="divider"></li>
 	                         </c:if>
-	                         
 	                         <li><a href="#">최근본상품</a></li>
-	                         <li class="divider"></li>
-	                         <li><a href="#">etc..</a></li>
 	                     </ul>
 	                 </li>
 	                 
-	                 <li><a href="#">etc...</a></li>
 	             </ul>
 	             
 	             <ul class="nav navbar-nav navbar-right">
