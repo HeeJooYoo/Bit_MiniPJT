@@ -97,7 +97,7 @@ public class ProductController {
 		product.setFileName(fileName);
 		product.setProdName(request.getParameter("prodName"));
 		product.setProdDetail(request.getParameter("prodDetail"));
-		product.setManuDate(request.getParameter("manuDate").replace("-", ""));
+		product.setManuDate(request.getParameter("manuDate"));
 		product.setPrice(Integer.parseInt(request.getParameter("price")));
 	
 		System.out.println("Product »Æ¿Œ :: " + product);

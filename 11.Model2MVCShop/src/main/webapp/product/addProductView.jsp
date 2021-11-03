@@ -35,12 +35,6 @@
 	
 	<script type="text/javascript">
 		function fncAddProduct(){
-			//Form 유효성 검증
-	/* 	 	var name = document.detailForm.prodName.value;
-			var detail = document.detailForm.prodDetail.value;
-			var manuDate = document.detailForm.manuDate.value;
-			var price = document.detailForm.price.value; */
-			
 		 	var name = $("input[name='prodName']").val();
 			var detail = $("input[name='prodDetail']").val();
 			var manuDate = $("input[name='manuDate']").val();
@@ -99,7 +93,6 @@
 	<jsp:include page="/layout/toolbar.jsp" />
 	
 	<div class="container">
-		
 		
 		<div class="page-header text-center">
 	       <h3 class=" text-info">상품등록</h3>

@@ -146,7 +146,7 @@
     						
     						append_nod += "<div class='col-xs-6 col-md-3'>";
     						append_nod += "<div class='thumbnail'>";    						
-    						append_nod += "<img src = '/images/uploadFiles/"+item.fileName+"/>";
+    						append_nod += "<img src = '/images/uploadFiles/"+item.fileName+"' />";
     						append_nod += "<div class='caption'>";
     						append_nod += ("<h3>" + item.prodName + "</h3>");
     						append_nod += ("<p>АЁАн : " + item.price + "</p>"); 
