@@ -1,5 +1,7 @@
 package com.model2.mvc.web.user;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,17 +10,27 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
+import com.model2.mvc.service.user.google.GoogleOAuthRequest;
+import com.model2.mvc.service.user.google.GoogleOAuthResponse;
 
 
 //==> 회원관리 Controller
@@ -173,4 +185,43 @@ public class UserController {
 		
 		return "forward:/user/listUser.jsp";
 	}
+	
+//	@RequestMapping(value = "/google/auth", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String googleAuth(String idtoken, Model model) throws GeneralSecurityException, IOException {
+//		
+//		HttpTransport transport = Utils.getDefaultTransport();
+//		JsonFactory jsonFactory = Utils.getDefaultJsonFactory();
+//		
+//		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+//				.setAudience(Collections.singletonList("클라이언트 ID")).build();
+//		
+//		JSONObject json = new JSONObject();
+//		
+//		GoogleIdToken idToken = verifier.verify(idtoken);
+//		if (idToken != null) {
+//			Payload payload = idToken.getPayload();
+//			
+//			if (dupId((String) payload.get("email")).contains("false")) { //회원가입이 안 되어 있는 경우
+//				SocialJoinVO sjVO = new SocialJoinVO();
+//				sjVO.setId((String) payload.get("email"));
+//				sjVO.setAuth_email((String) payload.get("email"));
+//				sjVO.setNickname((String) payload.get("given_name"));
+//				sjVO.setBlog_name((String) payload.get("given_name"));
+//				sjVO.setProfile_img((String) payload.get("picture"));
+//				sjVO.setPlatform("google");
+//				sjVO.setAccess_token(idtoken);
+//				
+//				new MemberService().googleJoin(sjVO);
+//			}//end if
+//				
+//			model.addAttribute("id", (String) payload.get("email"));
+//			json.put("login_result", "success");
+//				
+//		} else { //유효하지 않은 토큰
+//			json.put("login_result", "fail");
+//		}//end else
+//			
+//		return json.toJSONString();
+//	}
 }

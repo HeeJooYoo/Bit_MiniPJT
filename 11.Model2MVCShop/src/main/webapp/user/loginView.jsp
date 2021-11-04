@@ -9,6 +9,8 @@
 <head>
 	<meta charset="EUC-KR">
 	
+	<meta name ="google-signin-client_id" content="329512929952-8u0grve26uikqovpi0sb4khlruv8qevg.apps.googleusercontent.com">
+	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
@@ -26,11 +28,39 @@
         }
     </style>
     
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
+    
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
+		function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+			  var id_token = googleUser.getAuthResponse().id_token;
+			  $("#googleBtn").click(function(){
+				  $.ajax({
+					  url: 'http://localhost:8070/user/google/auth',
+					  type: 'POST',
+					  data: 'idtoken=' + id_token, 
+					  dataType: 'JSON',
+					  beforeSend : function(xhr){
+						  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+					  },
+					  success: function(json) {
+						  if (json.login_result == "success"){
+							  location.href = "로그인 완료 후 이동할 main 주소";
+						  }//end if
+			          }//success
+				  });//ajax
+			  });//click
+		}
+	
 
 		//============= "로그인"  Event 연결 =============
 		$( function() {
+			
+			$("#googleLoginBtn").click(function(){
+				onClickGoogleLogin();
+			});
 			
 			$("#userId").focus();
 			
@@ -50,8 +80,6 @@
 					$("#password").focus();
 					return;
 				}
-				
-				//$("form").attr("method","POST").attr("action","/user/login").attr("target","_parent").submit();
 				
 				$.ajax( 
 						{
@@ -85,6 +113,7 @@
 									$(window.parent.frames["leftFrame"].document.location).attr("href","/layout/left.jsp");
 									$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId="+JSONData.userId);
 									
+									$("form").attr("method","POST").attr("action","/user/login").attr("target","_parent").submit();
 									//==> 방법 1 , 2 , 3 결과 학인
 								}else{
 									alert("아이디 , 패스워드를 확인하시고 다시 로그인...");
@@ -156,6 +185,7 @@
 					    <div class="col-sm-offset-4 col-sm-6 text-center">
 					      <button type="button" class="btn btn-primary"  >로 &nbsp;그 &nbsp;인</button>
 					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
+					      <div class="g-signin2" data-onsuccess="onSignIn" id="googleBtn"></div>
 					    </div>
 					  </div>
 			
