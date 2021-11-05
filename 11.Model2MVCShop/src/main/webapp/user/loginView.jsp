@@ -4,12 +4,18 @@
 
 <!DOCTYPE html>
 
-<html lang="ko">
+<html itemscope itemtype="http://schema.org/Article">
 	
 <head>
 	<meta charset="EUC-KR">
 	
-	<meta name ="google-signin-client_id" content="329512929952-8u0grve26uikqovpi0sb4khlruv8qevg.apps.googleusercontent.com">
+	<!-- client Id를 meta Tag를 통해 부여 (init method로 사용 시 불필요) -->
+	<!-- <meta name ="google-signin-client_id" content="329512929952-8u0grve26uikqovpi0sb4khlruv8qevg.apps.googleusercontent.com"> -->
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	
+	<!-- Google login Platform Library (Google Sign-in) -->
+  	<script src="https://apis.google.com/js/client:platform.js?onload=init" async defer></script>
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,8 +23,10 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -28,44 +36,75 @@
         }
     </style>
     
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+    	function checkLoginStatus() {
+    		//현재 로그인이 되어있는 상태인지 판별
+			if (googleAuth.isSignedIn.get()) {
+				console.log('login');
+				
+				
+				var profile = googleAuth.currentUser.get().getBasicProfile();
+				console.log(profile.getName());
+			} else {
+				console.log('logout');
+			}
+    	}
     
+    	function init() {
+    		console.log('init');
+    		gapi.load('auth2', function() {
+    			/* gapi.auth2.init();
+    			options = new gapi.auth2.SigninOptionsBuilder();
+    			options.setPrompt('select_account');
+    			options.setScope('email profile openid https://www.googleapis.com/auth/user/birthday.read'); */
+    			console.log('auth2');
+    			window.googleAuth = gapi.auth2.init({
+    				client_id: '329512929952-8u0grve26uikqovpi0sb4khlruv8qevg.apps.googleusercontent.com',
+    				scope : 'email profile openid https://www.googleapis.com/auth/user/birthday.read'
+    			})
+    			
+
+    			//then 첫번째 인자 값 => init(초기화)에 성공 시 함수를 리턴
+    			//then 두번째 인자 값 => error가 발생했을 때 함수를 리턴
+    			/* googleAuth.then(function() {
+    				console.log('googleAuth success');
+    				checkLoginStatus();
+    			}, function() {
+    				console.log('googleAuth fail');
+    			}); */
+    		});
+    	}
+    	
+    	$(function() {
+    		$('#signinButton').click(function() {
+        		console.log("dddd");
+        	    // signInCallback defined in step 6.
+        	    googleAuth.grantOfflineAccess().then(signInCallback);
+        	});
+    	});
+    	
+    </script>
+    
+    <!-- <script>
+	    function onSignIn(googleUser) {
+	    	var profile = googleUser.getBasicProfile();
+	    	console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	    	console.log('Name: ' + profile.getName());
+	    	console.log('Image URL: ' + profile.getImageUrl());
+	    	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	    }
+    </script> -->
     
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
-		function onSignIn(googleUser) {
-			var profile = googleUser.getBasicProfile();
-			  var id_token = googleUser.getAuthResponse().id_token;
-			  $("#googleBtn").click(function(){
-				  $.ajax({
-					  url: 'http://localhost:8070/user/google/auth',
-					  type: 'POST',
-					  data: 'idtoken=' + id_token, 
-					  dataType: 'JSON',
-					  beforeSend : function(xhr){
-						  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-					  },
-					  success: function(json) {
-						  if (json.login_result == "success"){
-							  location.href = "로그인 완료 후 이동할 main 주소";
-						  }//end if
-			          }//success
-				  });//ajax
-			  });//click
-		}
-	
-
+		
+		
 		//============= "로그인"  Event 연결 =============
-		$( function() {
-			
-			$("#googleLoginBtn").click(function(){
-				onClickGoogleLogin();
-			});
-			
+		$(function(){
 			$("#userId").focus();
 			
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("button").on("click" , function() {
+			$("#loginChek").on("click" , function() {
 				var id=$("input:text").val();
 				var pw=$("input:password").val();
 				
@@ -124,11 +163,11 @@
 							}
 					}); 
 			});
-		});	
-		
-		
+		});
+			
 		//============= 회원원가입화면이동 =============
 		$( function() {
+			
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("a[href='#' ]").on("click" , function() {
 				self.location = "/user/addUser"
@@ -183,12 +222,11 @@
 					  
 					  <div class="form-group">
 					    <div class="col-sm-offset-4 col-sm-6 text-center">
-					      <button type="button" class="btn btn-primary"  >로 &nbsp;그 &nbsp;인</button>
+					      <button type="button" class="btn btn-primary" id="loginChek" >로 &nbsp;그 &nbsp;인</button>
 					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
-					      <div class="g-signin2" data-onsuccess="onSignIn" id="googleBtn"></div>
+					      <span id="name"></span><button class="btn btn-primary" type="button" id="signinButton">Google Login</button>
 					    </div>
 					  </div>
-			
 					</form>
 			   	 </div>
 			
@@ -200,6 +238,34 @@
  	</div>
  	<!--  화면구성 div end /////////////////////////////////////-->
 
+<script>
+function signInCallback(authResult) {
+  if (authResult['code']) {
+
+    // Hide the sign-in button now that the user is authorized, for example:
+    $('#signinButton').attr('style', 'display: none');
+
+    // Send the code to the server
+    $.ajax({
+      type: 'POST',
+      url: 'http://example.com/storeauthcode',
+      // Always include an `X-Requested-With` header in every AJAX request,
+      // to protect against CSRF attacks.
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      contentType: 'application/octet-stream; charset=utf-8',
+      success: function(result) {
+        // Handle or verify the server response.
+      },
+      processData: false,
+      data: authResult['code']
+    });
+  } else {
+    // There was an error.
+  }
+}
+</script>
 </body>
 
 </html>
