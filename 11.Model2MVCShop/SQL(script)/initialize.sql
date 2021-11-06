@@ -1,20 +1,21 @@
 
 DROP TABLE transaction;
+DROP TABLE cart;
 DROP TABLE product;
 DROP TABLE users;
 
 DROP SEQUENCE seq_product_prod_no;
 DROP SEQUENCE seq_transaction_tran_no;
-
+DROP SEQUENCE seq_cart_cart_no;
 
 CREATE SEQUENCE seq_product_prod_no		 	INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_transaction_tran_no	INCREMENT BY 1 START WITH 10000;
-
+CREATE SEQUENCE seq_cart_cart_no INCREMENT BY 1 START WITH 1;
 
 CREATE TABLE users ( 
-	user_id 			VARCHAR2(20)	NOT NULL,
+	user_id 			VARCHAR2(50)	NOT NULL,
 	user_name 	VARCHAR2(50)	NOT NULL,
-	password 		VARCHAR2(10)	NOT NULL,
+	password 		VARCHAR2(10),
 	role 					VARCHAR2(5) 		DEFAULT 'user',
 	ssn 					VARCHAR2(13),
 	cell_phone 		VARCHAR2(14),
@@ -39,7 +40,7 @@ CREATE TABLE product (
 CREATE TABLE transaction ( 
 	tran_no 			NUMBER 			NOT NULL,
 	prod_no 			NUMBER(16)		NOT NULL REFERENCES product(prod_no),
-	buyer_id 			VARCHAR2(20)	 REFERENCES users(user_id),
+	buyer_id 			VARCHAR2(50)	 REFERENCES users(user_id),
 	payment_option		CHAR(3),
 	receiver_name 		VARCHAR2(20),
 	receiver_phone		VARCHAR2(14),
@@ -128,21 +129,14 @@ insert into product values (seq_product_prod_no.nextval,'»ï¼º¼¾½º 2G','sens ¸Þ¸ð
 insert into product values (seq_product_prod_no.nextval,'¿¬²É','Á¤¿øÀ» °¡²ãº¸¼¼¿ä','20121022',232300, 'AHlbAAAAtDPSiQAA.jpg',to_date('2012/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'));
 insert into product values (seq_product_prod_no.nextval,'»ï¼º¼¾½º','³ëÆ®ºÏ','20120212',600000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
 
-
-commit;
-
-DROP TABLE cart;
-
-DROP SEQUENCE seq_cart_cart_id;
-
 CREATE TABLE cart(
     cart_no NUMBER NOT NULL PRIMARY KEY,
-    user_id VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
+    user_id VARCHAR2(50)	NOT NULL REFERENCES users(user_id),
     prod_no NUMBER 			NOT NULL REFERENCES product(prod_no),
     amount NUMBER DEFAULT 0
 );
 
-CREATE SEQUENCE seq_cart_cart_no INCREMENT BY 1 START WITH 1;
+
 
 commit;
 

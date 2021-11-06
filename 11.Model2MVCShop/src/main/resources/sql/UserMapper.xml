@@ -95,4 +95,17 @@
 						</if> ) countTable						
 	 </select>
 	 
+	 <!-- sns api login -->
+	 <insert id="addSNSUser" parameterType="user">
+	 	INSERT
+		INTO users( user_id , user_name , role , email , reg_date) 
+		VALUES	 (	#{userId} , #{userName} , 'user' , #{email:VARCHAR} , SYSDATE )
+	 </insert>
+	 
+	 <!-- <select id="getUser" parameterType="string" resultMap="userSelectMap">
+	 	SELECT
+		user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
+		FROM users 
+		WHERE user_id = #{value}
+	 </select> -->
 </mapper>

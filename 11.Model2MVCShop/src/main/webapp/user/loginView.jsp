@@ -42,9 +42,6 @@
 			if (googleAuth.isSignedIn.get()) {
 				console.log('login');
 				
-				
-				var profile = googleAuth.currentUser.get().getBasicProfile();
-				console.log(profile.getName());
 			} else {
 				console.log('logout');
 			}
@@ -60,24 +57,26 @@
     			console.log('auth2');
     			window.googleAuth = gapi.auth2.init({
     				client_id: '329512929952-8u0grve26uikqovpi0sb4khlruv8qevg.apps.googleusercontent.com',
-    				scope : 'email profile openid https://www.googleapis.com/auth/user/birthday.read'
+    				scope : 'email profile openid',
+    				/* prompt : 'select_account' */
+    				response_type : 'code',
+    				access_type:'offline'
     			})
     			
 
     			//then 첫번째 인자 값 => init(초기화)에 성공 시 함수를 리턴
     			//then 두번째 인자 값 => error가 발생했을 때 함수를 리턴
-    			/* googleAuth.then(function() {
+    			googleAuth.then(function() {
     				console.log('googleAuth success');
     				checkLoginStatus();
     			}, function() {
     				console.log('googleAuth fail');
-    			}); */
+    			});
     		});
     	}
     	
     	$(function() {
     		$('#signinButton').click(function() {
-        		console.log("dddd");
         	    // signInCallback defined in step 6.
         	    googleAuth.grantOfflineAccess().then(signInCallback);
         	});
@@ -152,7 +151,7 @@
 									$(window.parent.frames["leftFrame"].document.location).attr("href","/layout/left.jsp");
 									$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId="+JSONData.userId);
 									
-									$("form").attr("method","POST").attr("action","/user/login").attr("target","_parent").submit();
+									$("#login").attr("method","POST").attr("action","/user/login").attr("target","_parent").submit();
 									//==> 방법 1 , 2 , 3 결과 학인
 								}else{
 									alert("아이디 , 패스워드를 확인하시고 다시 로그인...");
@@ -204,7 +203,7 @@
 				<div class="jumbotron">	 	 	
 		 	 		<h1 class="text-center">로 &nbsp;&nbsp;그 &nbsp;&nbsp;인</h1>
 
-			        <form class="form-horizontal">
+			        <form id="login" class="form-horizontal">
 		  
 					  <div class="form-group">
 					    <label for="userId" class="col-sm-4 control-label">아 이 디</label>
@@ -228,6 +227,11 @@
 					    </div>
 					  </div>
 					</form>
+					
+					<form id="snsLogin">
+						<input type="hidden" name="userId" value=""/>
+						<input type="hidden" name="userName" value=""/>
+					</form>
 			   	 </div>
 			
 			</div>
@@ -240,29 +244,44 @@
 
 <script>
 function signInCallback(authResult) {
+  var snsName;
+  var snsEmail;
+  console.log(authResult);
   if (authResult['code']) {
-
-    // Hide the sign-in button now that the user is authorized, for example:
-    $('#signinButton').attr('style', 'display: none');
-
+	
+    var profile = googleAuth.currentUser.get().getBasicProfile();
+    snsName = profile.getName();
+    snsEmail = profile.getEmail();
     // Send the code to the server
     $.ajax({
       type: 'POST',
-      url: 'http://example.com/storeauthcode',
+      url: 'http://localhost:8070/user/json/googleCheck',
       // Always include an `X-Requested-With` header in every AJAX request,
       // to protect against CSRF attacks.
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      contentType: 'application/octet-stream; charset=utf-8',
-      success: function(result) {
+      dataType : 'json',
+      data: {
+	    userName : snsName,
+	    email : snsEmail
+	  },
+      success: function(data) {
         // Handle or verify the server response.
+        console.log(data.userId);
+        if (data.userId != null) {
+			self.location='../index.jsp';
+		} else {
+			$('input[name=userName]').attr('value',snsName);
+			$('input[name=userId]').attr('value',snsEmail);
+			$("#snsLogin").attr("method","POST").attr("action","/user/addSNSLoginUser").attr("target","_parent").submit();
+			//self.location='/user/addSNSLoginUser?snsEmail='+profile.getEmail()+'&snsName='+profile.getName();
+		}
       },
-      processData: false,
-      data: authResult['code']
+      error: function(data) {
+    	  console.log(data);
+      }
     });
   } else {
     // There was an error.
+	//window.location.reload();
   }
 }
 </script>

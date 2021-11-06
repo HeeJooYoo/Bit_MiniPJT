@@ -215,7 +215,7 @@ public class ProductRestController {
 //		}
 //		
 		System.out.println((String)map.get("searchCondition")); 
-		System.out.println((String)request.getParameter("searchCondition"));
+		System.out.println(request.getParameter("searchCondition"));
 		System.out.println(request.getParameter("currentPage"));
 		
 		

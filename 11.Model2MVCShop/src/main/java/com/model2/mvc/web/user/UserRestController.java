@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
+import com.model2.mvc.service.snsLogin.SNSLoginService;
 import com.model2.mvc.service.user.UserService;
 
 
@@ -34,6 +36,11 @@ public class UserRestController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	//setter Method 구현 않음
+	
+	///Field
+	@Autowired
+	@Qualifier("snsLoginServiceImpl")
+	private SNSLoginService snsLoginService;
 		
 	public UserRestController(){
 		System.out.println(this.getClass());
@@ -150,6 +157,22 @@ public class UserRestController {
 		map.put("search", search);
 		
 		return map;
+	}
+
+	@RequestMapping(value = "/json/googleCheck", method = RequestMethod.POST)
+	public User googleAuth(HttpServletRequest request, HttpSession session) throws Exception {
+		
+		System.out.println("/user/json/googleCheck : POST");
+		
+		User user = snsLoginService.getSNSLogin(request.getParameter("email"));
+		
+		if (user == null) {
+			user = new User();
+		} else {
+			session.setAttribute("user", user);
+		}
+		
+		return user;
 	}
 }
 	
