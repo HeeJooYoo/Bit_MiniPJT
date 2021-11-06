@@ -4,11 +4,12 @@
 
 <!DOCTYPE html>
 
-<html itemscope itemtype="http://schema.org/Article">
+<html>
 	
 <head>
 	<meta charset="EUC-KR">
 	
+	<title>로그인 화면</title>
 	<!-- client Id를 meta Tag를 통해 부여 (init method로 사용 시 불필요) -->
 	<!-- <meta name ="google-signin-client_id" content="329512929952-8u0grve26uikqovpi0sb4khlruv8qevg.apps.googleusercontent.com"> -->
 	
@@ -141,17 +142,15 @@
 								
 								if( JSONData != null ){
 									//[방법1]
-									//$(window.parent.document.location).attr("href","/index.jsp");
+									$(window.parent.document.location).attr("href","/index.jsp");
 									
 									//[방법2]
 									//window.parent.document.location.reload();
 									
 									//[방법3]
-									$(window.parent.frames["topFrame"].document.location).attr("href","/layout/top.jsp");
-									$(window.parent.frames["leftFrame"].document.location).attr("href","/layout/left.jsp");
-									$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId="+JSONData.userId);
-									
-									$("#login").attr("method","POST").attr("action","/user/login").attr("target","_parent").submit();
+									//$(window.parent.frames["topFrame"].document.location).attr("href","/layout/top.jsp");
+									//$(window.parent.frames["leftFrame"].document.location).attr("href","/layout/left.jsp");
+									//$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId="+JSONData.userId);
 									//==> 방법 1 , 2 , 3 결과 학인
 								}else{
 									alert("아이디 , 패스워드를 확인하시고 다시 로그인...");

@@ -113,7 +113,7 @@
 			<div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <a class="btn btn-primary btn" href="#" role="button">검색</a>
-		      <a class="btn btn-primary btn" href="#" role="button">취소</a>		      
+		      <a class="btn btn-default btn" href="#" role="button">취소</a>		      
 		    </div>
 		  </div>
 		</form>

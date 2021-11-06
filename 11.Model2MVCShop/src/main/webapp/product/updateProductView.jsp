@@ -23,7 +23,7 @@
    <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
    
-   <!-- ////////////////// datepicker /////////////////////  -->
+    <!-- ////////////////// datepicker /////////////////////  -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
@@ -149,7 +149,7 @@
 			<div class="form-group">
 			   	<div class="col-sm-offset-4  col-sm-4 text-center">
 					<a class="btn btn-primary btn" href="#" role="button">수정</a>
-			     	<button type="button" class="btn btn-primary">취소</button>
+			     	<button type="button" class="btn btn-default">취소</button>
 			   	</div>
 		  	</div>
 		</form>

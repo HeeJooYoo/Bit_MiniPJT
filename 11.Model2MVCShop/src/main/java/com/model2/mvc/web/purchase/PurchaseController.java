@@ -116,12 +116,12 @@ public class PurchaseController {
 			System.out.println("구매 업데이트 성공");
 		}
 		
-		purchase = purchaseService.getPurchase(purchase.getTranNo()); 
-		System.out.println("updatePurchase_getPurchase :: " + purchase);
+//		purchase = purchaseService.getPurchase(purchase.getTranNo()); 
+//		System.out.println("updatePurchase_getPurchase :: " + purchase);
+//		
+//		model.addAttribute("purchase", purchase);
 		
-		model.addAttribute("purchase", purchase);
-		
-		return "forward:updatePurchase.jsp";
+		return "redirect:/purchase/getPurchase?tranNo="+purchase.getTranNo();
 	}
 	
 	@RequestMapping(value = "updateTranCodeByProd", method = RequestMethod.GET)
@@ -150,7 +150,6 @@ public class PurchaseController {
 
 	@RequestMapping("listPurchase")
 	public String listPurchase(@ModelAttribute Search search, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		
 		User user = (User)session.getAttribute("user");
 		System.out.println(request.getParameter("searchOrder"));
 		

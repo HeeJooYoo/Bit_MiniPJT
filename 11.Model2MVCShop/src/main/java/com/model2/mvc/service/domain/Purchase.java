@@ -44,6 +44,9 @@ public class Purchase {
 		return divyDate;
 	}
 	public void setDivyDate(String divyDate) {
+		if (divyDate != null) {
+			divyDate = divyDate.split(" ")[0];
+		}
 		this.divyDate = divyDate;
 	}
 	public String getDivyRequest() {
