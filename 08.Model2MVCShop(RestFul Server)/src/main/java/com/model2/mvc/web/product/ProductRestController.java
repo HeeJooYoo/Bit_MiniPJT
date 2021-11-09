@@ -1,33 +1,21 @@
 package com.model2.mvc.web.product;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -44,22 +32,19 @@ public class ProductRestController {
 	@Qualifier("productServiceImpl")
 	private ProductService productService;
 	
-//	@Value("#{commonProperties['pageUnit']}")
-//	//@Value("#{commonProperties['pageUnit'] ?: 3}")
-//	int pageUnit;
-//	
-//	@Value("#{commonProperties['pageSize']}")
-//	//@Value("#{commonProperties['pageSize'] ?: 2}")
-//	int pageSize;
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
 
 	public ProductRestController() {
 		// TODO Auto-generated constructor stub
 		System.out.println(this.getClass());
 	}
 	
-//	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
-//	public String addProduct(HttpServletRequest request, @RequestParam("fileName") MultipartFile uploadfile, Model model) throws Exception {
-//		
+	@RequestMapping(value = "json/addProduct", method = RequestMethod.POST)
+	public Product addProduct(@RequestBody Product product) throws Exception {
+		
 //		System.out.println(":: 파일 이름 => " + uploadfile.getOriginalFilename());
 //		System.out.println(":: 파일 크기 => " + uploadfile.getSize());
 //			
@@ -100,55 +85,64 @@ public class ProductRestController {
 //		System.out.println("insert 결과 :: " + productService.addProduct(product));
 //		
 //		model.addAttribute("product", product);
-//		
-//		return "forward:addProduct.jsp";
-//	}
+		
+		System.out.println("/prodcut/addProduct : POST");
+		
+		int result = productService.addProduct(product);
+		
+		Product returnProduct = null;
+		if (result == 1) {
+			returnProduct = productService.getProduct(10000);
+		}
+		
+		return returnProduct;
+	}
 
-//	@RequestMapping(value = "getProduct", method = RequestMethod.GET)
-//	public String getProduct(@RequestParam("menu") String menu, @ModelAttribute Product product, @CookieValue(value = "history", required = false) Cookie cookies,
-//										HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		
-//		System.out.println("tranCode 확인 :: "+request.getParameter("tranCode"));
-//		
-//		if ("manage".equals(menu)) {
-//			return "redirect:/product/updateProduct?prodNo="+product.getProdNo()+"&menu="+menu;
-//		}
-//		
-//		String pn = request.getParameter("prodNo");
-//		if (cookies!=null && !cookies.equals("")) {
-//			boolean check = false;
-//			String[] strArray = cookies.getValue().split(",");
-//			if (strArray.length != 0) {
-//				for (String str:strArray) {
-//					if (str.equals(request.getParameter("prodNo"))) {
-//						pn = "";
-//						check = true;
-//						break;
-//					}
-//				}
-//					
-//				history = cookies.getValue();
-//				if (!check) {
-//					history = cookies.getValue()+",";
-//					pn = request.getParameter("prodNo");
-//				}
-//			}	
-//		}
-//		
-//		Cookie cookie = new Cookie("history",  history+pn);
-//		cookie.setPath("/");
-//		response.addCookie(cookie);
-//		
-//		product = productService.getProduct(product.getProdNo());
-//		session.setAttribute("product", product);
-//		request.setAttribute("tranCode", request.getParameter("tranCode"));
-//		
-//		return "forward:getProduct.jsp?prodNo="+product.getProdNo()+"&menu="+menu;
-//	}
+	@RequestMapping(value = "json/getProduct/{menu}/{prodNo}", method = RequestMethod.GET)
+	public Product getProduct(@PathVariable("menu") String menu, @PathVariable("prodNo") String prodNo,
+							@CookieValue(value = "history", required = false) Cookie cookies, HttpServletResponse response) throws Exception {
+		
+		System.out.println("/prodcut/getProduct : GET");
+		
+		if ("manage".equals(menu)) {
+			System.out.println("이곳은 manage 부분");
+			//return "redirect:/product/updateProduct?prodNo="+prodNo+"&menu="+menu;
+		}
+		
+		String pn = prodNo;
+		if (cookies!=null && !cookies.equals("")) {
+			boolean check = false;
+			String[] strArray = cookies.getValue().split(",");
+			if (strArray.length != 0) {
+				for (String str:strArray) {
+					if (str.equals(prodNo)) {
+						pn = "";
+						check = true;
+						break;
+					}
+				}
+					
+				history = cookies.getValue();
+				if (!check) {
+					history = cookies.getValue()+",";
+					pn = prodNo;
+				}
+			}	
+		}
+		
+		Cookie cookie = new Cookie("history",  history+pn);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		
+		Product product = productService.getProduct(Integer.parseInt(prodNo));
+	 
+		return product;
+	}
 	
 	@RequestMapping(value = "json/updateProduct/{prodNo}", method = RequestMethod.GET)
 	public Product updateProduct(@PathVariable int prodNo) throws Exception {
 		
+		System.out.println("/prodcut/updateProduct : GET");
 		System.out.println(":: updateProductViewAction_prodNo => "+prodNo);
 		
 		return productService.getProduct(prodNo);
@@ -157,6 +151,7 @@ public class ProductRestController {
 	@RequestMapping(value = "json/updateProduct", method = RequestMethod.POST)
 	public Product updateProduct(@RequestBody Product product) throws Exception {
 		
+		System.out.println("/prodcut/updateProduct : POST");
 		System.out.println(":: updateProductAction_prodNo => "+product.getProdNo());
 		System.out.println(":: update Product 확인 => "+product);
 
@@ -166,33 +161,36 @@ public class ProductRestController {
 		return resultProduct;
 	}
 	
-	//enter 입력 시 error 해결 필요
-//	@RequestMapping("listProduct")
-//	public String listProduct(HttpServletRequest request ,@ModelAttribute Search search, @RequestParam(required = false, value="searchOrder") String order, Model model) throws Exception {
-//		
-//		System.out.println("list currentPage " + request.getParameter("currentPage"));
-//		
-//		if (search.getCurrentPage() == 0) {
-//			search.setCurrentPage(1);
-//		}
-//		search.setPageSize(pageSize);
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("search", search);
-//		map.put("order", order);			
-//		
-//		System.out.println("listProduct search :: " + search);
-//		System.out.println("listProduct order :: " + order);
-//		
-//		productService.getProductList(map);
-//
-//		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-//		
-//		model.addAttribute("list", map.get("list"));
-//		model.addAttribute("searchOrder", map.get("order"));
-//		model.addAttribute("resultPage", resultPage);
-//		model.addAttribute("search", search);
-//		
-//		return "forward:listProduct.jsp";
-//	}
+	
+	@RequestMapping("json/listProduct")
+	public Map<String, Object> listProduct(@RequestBody(required = false) Search search, @RequestParam(required = false, value="searchOrder") String order) throws Exception {
+		
+		System.out.println("/prodcut/listProduct : GET/POST");
+		//System.out.println("list currentPage " + request.getParameter("currentPage"));
+		
+		if (search == null) {
+			search = new Search();
+		}
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("order", order);			
+		
+		System.out.println("listProduct search :: " + search);
+		System.out.println("listProduct order :: " + order);
+		
+		map = productService.getProductList(map);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		map.put("resultPage", resultPage);
+		map.put("search", search);
+		
+		return map;
+	}
 }

@@ -111,7 +111,7 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="json/listUser")
-	public Map listUser(@RequestBody Search search) throws Exception{
+	public Map listUser(@RequestBody(required = false) Search search) throws Exception{
 		
 		System.out.println("/user/listUser : GET / POST");
 		
