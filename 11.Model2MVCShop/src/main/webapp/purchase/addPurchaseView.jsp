@@ -26,18 +26,45 @@
 	 <!-- Bootstrap Dropdown Hover JS -->
 	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 	
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	
 	<style>
  		body {
             padding-top : 50px;
         }
-     </style>
-	
+    </style>
+     
 	<script type="text/javascript">
+		
+		function fncKakaoPay() {
+			var IMP = window.IMP; 
+		    IMP.init('imp91244665'); 
+		    IMP.request_pay({
+		    	pg : "kakaopay", 
+		        pay_method : 'card',
+		        merchant_uid : 'merchant_' + new Date().getTime(),
+		        name : '결제',
+		        amount : '1',
+		        buyer_email : '${user.email}',
+		        buyer_name : '${user.userName}',
+		        buyer_tel : '${user.phone}',
+		        buyer_addr : '${user.addr}',
+		        buyer_postcode : '${user.addr}',
+		        m_redirect_url : '../main.jsp'
+		    }, function(rsp) {
+		        if ( rsp.success ) {
+		            var msg = '결제가 완료되었습니다.';
+		            $("form").attr("method", "POST").attr("action", "/purchase/addPurchase").submit();
+		        } else {
+		            var msg = '결제에 실패하였습니다.';
+		            rsp.error_msg;
+		            
+		        }
+		    });
+		}
+	
 	
 		function fncAddPurchase() {
-		
-			alert($("select[name='phone1']").val());
-			
 			if($("input[name='phone2']").val() != "" && $("input[name='phone3']").val() != "") {
 				$("input[name='receiverPhone']").val($("select[name='phone1']").val() + "-" + $("input[name='phone2']").val() + "-" + $("input[name='phone3']").val());
 			} else {
@@ -62,6 +89,11 @@
 					alert("구매자 주소는  반드시 입력하셔야 합니다.");
 					return;
 				}
+			}
+			
+			if ($("select[name='paymentOption']").val() == '2') {
+				fncKakaoPay();
+				return;
 			}
 			
 			$("form").attr("method", "POST").attr("action", "/purchase/addPurchase").submit();
