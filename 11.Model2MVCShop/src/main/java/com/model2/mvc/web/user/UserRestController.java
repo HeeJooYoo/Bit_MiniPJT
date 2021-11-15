@@ -174,5 +174,13 @@ public class UserRestController {
 		
 		return user;
 	}
+	
+	@RequestMapping(value = "/json/certification", method = RequestMethod.POST)
+	public User certification(HttpServletRequest request, HttpSession session) throws Exception {
+		
+		System.out.println(request.getParameter("imp_uid"));
+		
+		return null;
+	}
 }
 	

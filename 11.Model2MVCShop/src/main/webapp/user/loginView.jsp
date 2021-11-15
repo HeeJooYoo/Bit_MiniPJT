@@ -222,7 +222,9 @@
 					    <div class="col-sm-offset-4 col-sm-6 text-center">
 					      <button type="button" class="btn btn-primary" id="loginChek" >로 &nbsp;그 &nbsp;인</button>
 					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
-					      <span id="name"></span><button class="btn btn-primary" type="button" id="signinButton">Google Login</button>
+					    </div>
+					    <div class="col-sm-offset-4 col-sm-6 text-center" id="signinButton">
+					      <img src='/images/btn_google_signin_dark_normal_web@2x.png' width="150px" >
 					    </div>
 					  </div>
 					</form>
@@ -271,7 +273,6 @@ function signInCallback(authResult) {
 			$('input[name=userName]').attr('value',snsName);
 			$('input[name=userId]').attr('value',snsEmail);
 			$("#snsLogin").attr("method","POST").attr("action","/user/addSNSLoginUser").attr("target","_parent").submit();
-			//self.location='/user/addSNSLoginUser?snsEmail='+profile.getEmail()+'&snsName='+profile.getName();
 		}
       },
       error: function(data) {

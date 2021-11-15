@@ -18,6 +18,9 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
+	<!-- iamport.payment.js -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
        body > div.container{
@@ -26,7 +29,33 @@
         }
     </style>
     
-     <!--  ///////////////////////// JavaScript ////////////////////////// -->
+    <!--  ///////////////////////// JavaScript ////////////////////////// -->
+	<script>
+		var IMP = window.IMP;
+	 	IMP.init("imp91244665");
+	 	
+	 	IMP.certification(
+	 			{
+	 				m_redirect_url : '/user/addUserView.jsp',
+	 				popup : false
+	 			},
+	 			function (rsp) {
+	 				if (condition) {
+	 					$.ajax({
+	 				    	method: "POST",
+	 				       	url: '/user/json/certification',
+	 				       	headers: { "Content-Type": "application/json" },
+	 				       	data: { imp_uid: rsp.imp_uid }
+	 				    });
+		    				//alert("인증성공!!!");					
+						} else {
+							alert("인증실패!!");
+						}
+	 			}
+	 	);
+	</script>
+	
+	
 	<script type="text/javascript">
 	
 		//============= "가입"  Event 연결 =============
