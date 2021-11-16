@@ -53,6 +53,13 @@ CREATE TABLE transaction (
 	PRIMARY KEY(tran_no)
 );
 
+CREATE TABLE cart(
+    cart_no NUMBER NOT NULL PRIMARY KEY,
+    user_id VARCHAR2(50)	NOT NULL REFERENCES users(user_id),
+    prod_no NUMBER 			NOT NULL REFERENCES product(prod_no),
+    amount NUMBER DEFAULT 0
+);
+
 
 INSERT 
 INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 
@@ -128,15 +135,6 @@ insert into product values (seq_product_prod_no.nextval,'인라인','좋아욥','20120
 insert into product values (seq_product_prod_no.nextval,'삼성센스 2G','sens 메모리 2Giga','20121121',800000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/11/14 18:46:58', 'YYYY/MM/DD HH24:MI:SS'));
 insert into product values (seq_product_prod_no.nextval,'연꽃','정원을 가꿔보세요','20121022',232300, 'AHlbAAAAtDPSiQAA.jpg',to_date('2012/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'));
 insert into product values (seq_product_prod_no.nextval,'삼성센스','노트북','20120212',600000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
-
-CREATE TABLE cart(
-    cart_no NUMBER NOT NULL PRIMARY KEY,
-    user_id VARCHAR2(50)	NOT NULL REFERENCES users(user_id),
-    prod_no NUMBER 			NOT NULL REFERENCES product(prod_no),
-    amount NUMBER DEFAULT 0
-);
-
-
 
 commit;
 

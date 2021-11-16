@@ -1,9 +1,6 @@
 package com.model2.mvc.web.product;
 
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -232,7 +228,7 @@ public class ProductRestController {
 		System.out.println("/prodcut/getProductKeyword : GET");
 		//System.out.println("encoding Àü " + keyword);
 		keyword = URLDecoder.decode(keyword, "UTF-8");
-		System.out.println("encoding ÈÄ " + keyword);
+		System.out.println("encod	ing ÈÄ " + keyword);
 		
 		return productService.getProductKeyword(keyword);
 	}

@@ -44,13 +44,12 @@
 		        pay_method : 'card',
 		        merchant_uid : 'merchant_' + new Date().getTime(),
 		        name : '결제',
-		        amount : '1',
+		        amount : $('#price').text(),
 		        buyer_email : '${user.email}',
 		        buyer_name : '${user.userName}',
 		        buyer_tel : '${user.phone}',
 		        buyer_addr : '${user.addr}',
-		        buyer_postcode : '${user.addr}',
-		        m_redirect_url : '../main.jsp'
+		        buyer_postcode : '${user.addr}'
 		    }, function(rsp) {
 		        if ( rsp.success ) {
 		            var msg = '결제가 완료되었습니다.';
@@ -58,7 +57,6 @@
 		        } else {
 		            var msg = '결제에 실패하였습니다.';
 		            rsp.error_msg;
-		            
 		        }
 		    });
 		}
@@ -168,7 +166,7 @@
 			    <label for="price" class="col-sm-offset-1 col-sm-3 control-label">
 			    	가 격 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 			    </label>
-			    <div class="col-sm-4">${product.price}</div>
+			    <div class="col-sm-4" id="price">${product.price}</div>
 			</div>
 			
 			<div class="form-group">

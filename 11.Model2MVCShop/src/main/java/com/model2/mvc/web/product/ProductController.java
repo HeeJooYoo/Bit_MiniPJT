@@ -101,7 +101,7 @@ public class ProductController {
 		product.setPrice(Integer.parseInt(request.getParameter("price")));
 	
 		System.out.println("Product 확인 :: " + product);
-		//System.out.println("insert 결과 :: " + productService.addProduct(product));
+		System.out.println("insert 결과 :: " + productService.addProduct(product));
 		
 		model.addAttribute("product", product);
 		

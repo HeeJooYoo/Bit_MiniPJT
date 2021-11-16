@@ -33,6 +33,26 @@
 	  body {
             padding-top : 50px;
         }
+        
+      .imgBox {
+      		margin:auto;
+      		padding : 5px;
+      		width: 230px;
+      		height: 200px;
+      }
+      
+      
+      .imgBox:after {
+      		display:inline-block; 
+      		height:100%; 
+      		content:""; 
+      		vertical-align:middle;
+      }
+      
+      .imgBox img{
+      		width: 100%;
+      		vertical-align: middle;
+      }
   </style>
 <%--   
   <c:choose>
@@ -145,12 +165,14 @@
     						console.log(item);
     						
     						append_nod += "<div class='col-xs-6 col-md-3'>";
-    						append_nod += "<div class='thumbnail'>";    						
+    						append_nod += "<div class='thumbnail'>";    
+    						append_nod += "<div class='imgBox'>";   
     						append_nod += "<img src = '/images/uploadFiles/"+item.fileName+"' />";
+    						append_nod += "</div>";
     						append_nod += "<div class='caption'>";
     						append_nod += ("<h3>" + item.prodName + "</h3>");
     						append_nod += ("<p>가격 : " + item.price + "</p>"); 
-    						append_nod += ("<p>등록일 :" + item.regDate + "</p>");
+    						append_nod += ("<p>등록일 :" + item.regDateString + "</p>");
     						append_nod += "<p><a href='/product/getProduct?menu=search&prodNo="+item.prodNo+"&tranCode="+item.proTranCode+ "' class='btn btn-primary' role='button'>상세보기</a></p>";
     						append_nod += "</div>";
     						append_nod += "</div>";
@@ -317,7 +339,9 @@
 						<c:set var="i" value="${ i+1 }" />
 							<div class="col-xs-6 col-md-3">
 						    	<div class="thumbnail">
-						    	  <img src = "/images/uploadFiles/${product.fileName}"/>
+						    		<div class="imgBox">
+						    			<img src = "/images/uploadFiles/${product.fileName}"/>
+						    		</div>
 							      <div class="caption">
 							        <h3>${product.prodName}</h3>
 							        <p>가격 : ${product.price}</p>

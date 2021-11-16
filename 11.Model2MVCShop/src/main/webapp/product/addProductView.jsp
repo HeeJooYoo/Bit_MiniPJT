@@ -34,6 +34,7 @@
      </style>
 	
 	<script type="text/javascript">
+	
 		function fncAddProduct(){
 		 	var name = $("input[name='prodName']").val();
 			var detail = $("input[name='prodDetail']").val();
@@ -84,6 +85,13 @@
 				changeYear: true,
 				dateFormat:"yy-mm-dd"
 			});
+			
+			$("#fileName").addEventListener('drop', function(e) {
+		        e.preventDefault();
+
+		        console.log('drop');
+		        this.style.backgroundColor = 'white';
+		    });
 				
 		});
 	</script>
