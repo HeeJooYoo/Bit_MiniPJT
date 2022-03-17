@@ -58,6 +58,10 @@
 			$(".Depth03:contains('구매이력조회')").on("click", function(){
 				$(window.parent.frames["rightFrame"].document.location).attr("href","/purchase/listPurchase");
 			});
+
+			$(".Depth03:contains('장바구니')").on("click", function(){
+				$(window.parent.frames["rightFrame"].document.location).attr("href","/cart/getCartList?userId=${user.userId}");
+			});
 			
 			$(".Depth03:contains('최근 본 상품')").on("click", function(){
 				history();
@@ -153,6 +157,15 @@
 				<td class="Depth03">
 					<!-- <a href="/purchase/listPurchase"  target="rightFrame">구매이력조회</a> -->
 					구매이력조회
+				</td>
+			</tr>
+			<tr>
+				<td class="DepthEnd">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="Depth03">
+					<!-- <a href="/cart/getCartList?userId=${user.userId}" target="rightFrame">장바구니</a> -->
+					장바구니
 				</td>
 			</tr>
 			<%-- <%  }%> --%>

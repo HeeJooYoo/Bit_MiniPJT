@@ -62,11 +62,30 @@ public class UserRestController {
 		System.out.println("::"+user);
 		User dbUser=userService.getUser(user.getUserId());
 		
-		if( user.getPassword().equals(dbUser.getPassword())){
-			System.out.println("login session 저장");
-			session.setAttribute("user", dbUser);
-		}
+		if(dbUser != null) {
+			if( user.getPassword().equals(dbUser.getPassword())){
+				System.out.println("login session 저장");
+				session.setAttribute("user", dbUser);
+			} else {
+				dbUser = null;
+			}
+		} 
+		
 		return dbUser;
+	}
+	
+	@RequestMapping( value="json/checkDuplication", method=RequestMethod.POST )
+	public Map<String, Object> checkDuplication(@RequestBody User user) throws Exception{
+		
+		System.out.println("/user/checkDuplication : POST");
+		//Business Logic
+		boolean result=userService.checkDuplication(user.getUserId());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", new Boolean(result));
+		map.put("userId", user.getUserId());
+
+		return map;
 	}
 	
 	@RequestMapping( value="json/addUser", method=RequestMethod.POST )

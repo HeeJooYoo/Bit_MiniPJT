@@ -115,7 +115,6 @@
 			<c:choose>
 				<c:when test="${vo.tranCode == '2'}">
 					<td align="left">
-						<%-- <a href='/purchase/updateTranCodeByProd?prodNo=${vo.purchaseProd.prodNo}&tranCode=3'>물건도착</a> --%>
 						<button id="f_button" value="${vo.purchaseProd.prodNo}">물건도착</button>
 					</td>
 				</c:when>
