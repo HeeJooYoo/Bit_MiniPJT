@@ -10,17 +10,17 @@
 - Framework를 사용하지 않고 프로젝트 개발
 
 <h3>#Refactoring 2</h3>
-- View와 Controller를 구분
-- PageNavigation을 Jsp에서 구현하지 않고 비즈니스 로직을 통해 구현
+- View와 Controller를 구분<br>
+- PageNavigation을 Jsp에서 구현하지 않고 비즈니스 로직을 통해 구현<br>
 
 <h3>#Refactoring 3</h3>
 - 자바형식 코드가 아닌 EL(Expression Language)과 JSTL(Jsp Standard Tag Library) 표현식 사용
 
 <h3>#Refactoring 4</h3>
-- Spring Framework 사용
-- Anotation으로 의존성 주입
-- MyBatis 사용
-- JUnit 사용하여 테스트 코드 작성
+- Spring Framework 사용<br>
+- Anotation으로 의존성 주입<br>
+- MyBatis 사용<br>
+- JUnit 사용하여 테스트 코드 작성<br>
 
 <h3>#Refactoring 5</h3>
 
