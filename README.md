@@ -7,10 +7,11 @@
 카카오페이를 통한 결제와 일반 결제로 나눠지며, 구매 후 고객은 현재 배송현황을 확인할 수 있다.
 
 <h3>#Refactoring 1</h3>
-- Framework를 사용하지 않고 프로젝트 개발
+- Framework를 사용하지 않고 MVC 프로젝트 개발<br>
+- Dispatcher Servlet, Handler Mapping, View Resolver 등
 
 <h3>#Refactoring 2</h3>
-- View와 Controller를 구분<br>
+- View와 Controller의 역햘을 분리<br>
 - PageNavigation을 Jsp에서 구현하지 않고 비즈니스 로직을 통해 구현<br>
 
 <h3>#Refactoring 3</h3>
@@ -18,12 +19,14 @@
 
 <h3>#Refactoring 4</h3>
 - Spring Framework 사용<br>
-- Anotation으로 의존성 주입<br>
+- Anotation을 사용하여 의존성 주입<br>
 - MyBatis 사용<br>
 - JUnit 사용하여 테스트 코드 작성<br>
 
 <h3>#Refactoring 5</h3>
-
+- Spring Framework 사용<br>
+- Transaction 관리<br>
+- AOP(Aspect-Oriented Programming)를 사용하여 공통기능 모듈화 
 
 
 <h3>#Refactoring 6</h3>
