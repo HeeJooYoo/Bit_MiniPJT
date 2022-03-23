@@ -30,3 +30,12 @@
 
 
 <h3>#Refactoring 6</h3>
+- getSession 비지니스로직에서 하도록 
+
+<h3>#Refactoring 7</h3>
+
+
+
+
+
+
