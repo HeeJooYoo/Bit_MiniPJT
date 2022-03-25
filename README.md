@@ -35,6 +35,18 @@
 <h3>#Refactoring 7</h3>
 
 
+<h3>#Refactoring 8</h3>
+
+
+<h3>#Refactoring 9</h3>
+
+
+<h3>#Refactoring 10</h3>
+
+
+<h3>#Refactoring 11</h3>
+
+
 
 
 
