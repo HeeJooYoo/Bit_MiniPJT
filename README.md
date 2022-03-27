@@ -12,7 +12,7 @@
 
 <h3>#Refactoring 2</h3>
 - View와 Controller의 역햘을 분리<br>
-- PageNavigation을 Jsp에서 구현하지 않고 비즈니스 로직을 통해 구현<br>
+- PageNavigation을 JSP에서 구현하지 않고 비즈니스 로직을 통해 구현<br>
 
 <h3>#Refactoring 3</h3>
 - 자바형식 코드가 아닌 EL(Expression Language)과 JSTL(Jsp Standard Tag Library) 표현식 사용
@@ -45,7 +45,7 @@
 
 
 <h3>#Refactoring 11</h3>
-
+- BootStrap 
 
 
 
