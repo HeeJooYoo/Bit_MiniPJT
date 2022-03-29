@@ -28,12 +28,12 @@
 - Transaction 관리<br>
 - AOP(Aspect-Oriented Programming)를 사용하여 공통기능 모듈화 
 
-
 <h3>#Refactoring 6</h3>
-- getSession 비지니스로직에서 하도록 
+- Presentation과 BusinessLogic 연결
 
 <h3>#Refactoring 7</h3>
-
+- Controller에 RequestMapping 어노테이션 사용
+- ~.do에서 .do를 제거 (ex. getUser.do => getUser)
 
 <h3>#Refactoring 8</h3>
 
