@@ -36,7 +36,8 @@
 - ~.do에서 .do를 제거 (ex. getUser.do => getUser)
 
 <h3>#Refactoring 8</h3>
-
+- RestFul API
+- Client와 Server간 데이터 전달 (JSON 형식으로 통신)
 
 <h3>#Refactoring 9</h3>
 
