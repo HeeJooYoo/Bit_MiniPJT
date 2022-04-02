@@ -32,11 +32,11 @@
 - Presentation과 BusinessLogic 연결
 
 <h3>#Refactoring 7</h3>
-- Controller에 RequestMapping 어노테이션 사용
+- Controller에 RequestMapping 어노테이션 사용<br>
 - ~.do에서 .do를 제거 (ex. getUser.do => getUser)
 
 <h3>#Refactoring 8</h3>
-- RestFul API
+- RestFul API<br>
 - Client와 Server간 데이터 전달 (JSON 형식으로 통신)
 
 <h3>#Refactoring 9</h3>
