@@ -40,7 +40,7 @@
 - Client와 Server간 데이터 전달 (JSON 형식으로 통신)
 
 <h3>#Refactoring 9</h3>
-
+- jQuery 사용
 
 <h3>#Refactoring 10</h3>
 
