@@ -43,8 +43,8 @@
 - jQuery 사용
 
 <h3>#Refactoring 10</h3>
-- @Controller와 @RestController 구분
-- Ajax 적용
+- @Controller와 @RestController 구분<br>
+- Ajax 적용<br>
 - @PathVariable, @RequestBody 사용
 
 
