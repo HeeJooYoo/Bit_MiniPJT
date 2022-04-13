@@ -46,7 +46,9 @@
 
 
 <h3>#Refactoring 11</h3>
-- BootStrap 
+- BootStrap 적용 <br>
+- I'mport 간편 카카오페이 결제 연동 <br>
+- Google SNS Login 적용
 
 
 
